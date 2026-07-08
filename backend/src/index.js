@@ -13,6 +13,7 @@ import { connectDB } from "./lib/db.js";
 import job from "./lib/cron.js";
 
 import clerkWebhook from "./webhooks/clerk.webhook.js"
+import authRoutes from "./routes/auth.route.js";
 
 const app = express();
 
@@ -34,6 +35,8 @@ app.get("/health", (req, res) => {
 
 // if the public directory exists, serve the static files
 // this is for the production build
+
+app.use("/api/auth", authRoutes)
 
 if(fs.existsSync(publicDir)){
     app.use(express.static(publicDir))
